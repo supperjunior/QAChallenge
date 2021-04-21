@@ -1,0 +1,45 @@
+package com.QAChallenge;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+public class UIAutomation {
+
+	public static void main(String args[])throws Exception{
+	WebDriver driver;
+	System.setProperty("webdriver.chrome.driver","C:\\Selenium\\Chrome\\chromedriver.exe");
+	ChromeOptions chromeOptions= new ChromeOptions();
+	chromeOptions.setBinary("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe");
+	driver=new ChromeDriver(chromeOptions);
+	driver.get("https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/Account/LogIn");
+	driver.findElement(By.id("Username")).click();
+	driver.findElement(By.id("Username")).sendKeys("TestUser99");
+	driver.findElement(By.id("Password")).click();
+	driver.findElement(By.id("Password")).sendKeys("ikpG^N@p{uwb");
+	driver.findElement(By.xpath("//button[@class='btn btn-primary']")).click();
+	Thread.sleep(2000);
+	driver.findElement(By.id("add")).click();
+	driver.findElement(By.id("firstName")).click();
+	driver.findElement(By.id("firstName")).sendKeys("TestName1");
+	driver.findElement(By.id("lastName")).click();
+	driver.findElement(By.id("lastName")).sendKeys("Lname");
+	driver.findElement(By.id("dependants")).click();
+	driver.findElement(By.id("dependants")).sendKeys("3");
+	driver.findElement(By.id("addEmployee")).click();
+	Thread.sleep(2000);
+	//*[@id="employeesTable"]/tbody/tr[1]
+	int rows= driver.findElements(By.xpath("//*[@id=\"employeesTable\"]/tbody/tr")).size();
+	System.out.println(rows);
+	for(int i=1;i<rows;i++) {
+		 String fName=driver.findElement(By.xpath("//*[@id=\"employeesTable\"]/tbody/tr["+i+"]/td[2]")).getText();
+	 System.out.println(fName);
+	 if(fName.contentEquals("TestName1")) {
+	 System.out.println("Employee added successfully");	
+	 }
+	 }
+	driver.quit();
+	}
+
+}
